@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 
 // https://uibakery.io/regex-library/phone-number
@@ -36,7 +37,7 @@ function CreateOrder() {
 
   return (
     <div>
-      <h2>Ready to order? Let's go!</h2>
+      <h2>Ready to order? Lets go!</h2>
 
       <form>
         <div>
