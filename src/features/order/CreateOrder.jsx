@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
-import { Form, redirect, useNavigation } from "react-router-dom";
+import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import { createOrder } from "../../services/apiRestaurant";
 
 // https://uibakery.io/regex-library/phone-number
@@ -37,6 +37,8 @@ function CreateOrder() {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
+  const formErrors = useActionData();
+
   // const [withPriority, setWithPriority] = useState(false);
   const cart = fakeCart;
 
@@ -55,6 +57,7 @@ function CreateOrder() {
           <label>Phone number</label>
           <div>
             <input type="tel" name="phone" required />
+            {formErrors?.phone && <p>{formErrors.phone}</p>}
           </div>
         </div>
 
@@ -101,6 +104,16 @@ export async function action({ request }) {
   };
   console.log(order);
 
+  // check if phone number is correct
+  const errors = {};
+  if (!isValidPhone(order.phone))
+    errors.phone =
+      "Please give us you correct phone number. We might need it to contact you. ";
+
+  // return Object if at least one error appear. And no new order is created, so it must be placed before newOrder.
+  if (Object.keys(errors).length > 0) return errors;
+
+  // If everything is okay, create new order and redirect
   const newOrder = await createOrder(order);
 
   return redirect(`/order/${newOrder.id}`);
