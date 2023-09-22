@@ -1,12 +1,13 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
-import { useParams } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import {
   calcMinutesLeft,
   formatCurrency,
   formatDate,
 } from "../../utils/helpers";
+import { getOrder } from "../../services/apiRestaurant";
 
 function Order() {
   // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
