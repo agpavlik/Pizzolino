@@ -4,6 +4,7 @@ function getPosition() {
   });
 }
 
+// eslint-disable-next-line no-unused-vars
 async function fetchAddress() {
   // 1) We get the user's geolocation position
   const positionObj = await getPosition();
@@ -13,6 +14,7 @@ async function fetchAddress() {
   };
 
   // 2) Then we use a reverse geocoding API to get a description of the user's address, so we can display it the order form, so that the user can correct it if wrong
+  // eslint-disable-next-line no-undef
   const addressObj = await getAddress(position);
   const address = `${addressObj?.locality}, ${addressObj?.city} ${addressObj?.postcode}, ${addressObj?.countryName}`;
 
