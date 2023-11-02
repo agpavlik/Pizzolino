@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
+import { useSelector } from 'react-redux';
 import { formatCurrency } from '../../utils/helpers';
 import DeleteItem from './DeleteItem';
 import UpdateItemQuantity from './UpdateItemQuantity';
-import { getCurrentQuantitById } from './cartSlice';
+import { getCurrentQuantityById } from './cartSlice';
 
 function CartItem({ item }) {
   const { name, quantity, totalPrice, pizzaId } = item;
 
-  const currentQuantity = useSelector(getCurrentQuantitById(id));
+  const currentQuantity = useSelector(getCurrentQuantityById(pizzaId));
 
   return (
     <li className="py-3 sm:flex sm:items-center sm:justify-between">
