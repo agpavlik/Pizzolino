@@ -1,14 +1,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../ui/Button';
 import { formatCurrency } from '../../utils/helpers';
-import { addItem } from '../cart/cartSlice';
+import { addItem, getCurrentQuantitById } from '../cart/cartSlice';
+import DeleteItem from '../cart/DeleteItem';
 
 function MenuItem({ pizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
 
   const dispatch = useDispatch();
+
+  const currentQuontity = useSelector(getCurrentQuantitById(id));
+  const isInCart = currentQuontity > 0;
 
   function handleAddToCart() {
     const newItem = {
@@ -42,6 +46,8 @@ function MenuItem({ pizza }) {
               Sold out
             </p>
           )}
+
+          {isInCart && <DeleteItem pizzaId={id} />}
 
           {!soldOut && (
             <Button type="small" onClick={handleAddToCart}>
