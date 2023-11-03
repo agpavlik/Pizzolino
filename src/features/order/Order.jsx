@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useFetcher, useLoaderData, useParams } from 'react-router-dom';
 import {
   calcMinutesLeft,
   formatCurrency,
@@ -9,11 +9,23 @@ import {
 } from '../../utils/helpers';
 import { getOrder } from '../../services/apiRestaurant';
 import OrderItem from './OrderItem';
+import { useEffect } from 'react';
 
 function Order() {
-  // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
   const order = useLoaderData();
 
+  // Fetch data from the menu route, but without the user actually going there and without causing a navigation.
+  const fetcher = useFetcher();
+
+  useEffect(
+    function () {
+      //Let's only fetch this data if there is no data yet.
+      if (!fetcher.data && fetcher.state === 'idle') fetcher.load('/menu');
+    },
+    [fetcher],
+  );
+
+  // Exclude names or address, these are only for the restaurant staff
   const {
     id,
     status,
@@ -55,7 +67,16 @@ function Order() {
 
       <ul className="divide-y divide-stone-300 border-b border-t border-stone-300 ">
         {cart.map((item) => (
-          <OrderItem item={item} key={item.pizzaId} />
+          <OrderItem
+            item={item}
+            key={item.pizzaId}
+            isLoadingIngredients={fetcher.state === 'loading'}
+            ingredients={
+              fetcher?.data?.find((el) => el.id === item.pizzaId)
+                ?.ingredients ?? []
+              // An empty array fix the problem with data and join
+            }
+          />
         ))}
       </ul>
 
