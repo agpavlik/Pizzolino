@@ -1,8 +1,37 @@
-# React + Vite
+# Pizzolino
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The application allows users to order pizza fast requiring no user account and no login.
 
-Currently, two official plugins are available:
+## Features of App
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- User can add multiple pizzas to a cart and make changes before ordering
+- User can provide a GPS location to make delivery easier
+- User can mark their order 'priority'
+- Each order has a unique ID, so the user can later look up their order
+
+## Tech Stack
+
+- React
+- React Router
+- Redux
+- Tailwind CSS
+- Vite
+
+### Short demovideo
+
+![Demovideo](./public/docs/demo46.gif)
+
+### Pages
+
+![Main page](./public/docs/101.png)
+![Main page](./public/docs/102.png)
+![Main page](./public/docs/103.png)
+
+## Setup
+
+Install dependencies and run app
+
+```sh
+npm install
+npm run dev
+```
